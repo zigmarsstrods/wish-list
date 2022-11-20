@@ -46,21 +46,21 @@ Izveidot atsevišķu ceļu, kurā pieņemt JSON request:
 
 Mērķis ir apkopot visus “name” laukus un savienot tos ar komatu kā atdalītāju. API response jābūt: johnsmith, angelinasmith,….
 
-## Descriptions
+## Description
 
 REST API using JAVA + PostgreSQL database
 
 
 ## Setup
 
-Just clone the repository
+Just clone this repository
 
 ## Usage
 
-The program can be run via  `./gradlew bootRun`
+The program can be run via   `./gradlew bootRun`
 
-App endpoints accessible from [http://localhost:8080/](http://localhost:8080/)
+Endpoints accessible from [http://localhost:8080/](http://localhost:8080/)
 
 ## Tests
 
-The tests can be run via `./gradlew clean test`
+The tests can be run via  `./gradlew clean test`
