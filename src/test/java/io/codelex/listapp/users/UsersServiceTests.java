@@ -3,6 +3,7 @@ package io.codelex.listapp.users;
 import io.codelex.listapp.users.domain.UserList;
 import io.codelex.listapp.users.domain.Usr;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -28,11 +29,14 @@ public class UsersServiceTests {
     Usr testUser = new Usr("user", id, name, "zigmars.strods@gmail");
     List<Usr> rawUserList = new ArrayList<>();
 
+    @BeforeEach
+    public void setupUserList() {
+        rawUserList.add(testUser);
+        testUserList.setUsers(rawUserList);
+    }
 
     @Test
     public void allUserNamesShouldBeFetched() {
-        rawUserList.add(testUser);
-        testUserList.setUsers(rawUserList);
         String result = usersService.getAllNames(testUserList);
         Assertions.assertEquals(name, result);
 
@@ -40,8 +44,6 @@ public class UsersServiceTests {
 
     @Test
     public void theSameUserNamesShouldBeFetched() {
-        rawUserList.add(testUser);
-        testUserList.setUsers(rawUserList);
         Mockito.doAnswer(invocation -> true)
                 .when(usersRepository)
                 .existsById(id);

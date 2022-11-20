@@ -25,19 +25,19 @@ public class WishListService {
     }
 
     public Wish updateWish(int id, String wishUpdate) {
-        validateWishIdExitence(id);
+        validateWishIdExistence(id);
         validateWishUnique(wishUpdate);
         Wish updatedWish = new Wish(id, wishUpdate);
         return wishListRepository.save(updatedWish);
     }
 
     public void deleteWishById(int id) {
-        validateWishIdExitence(id);
+        validateWishIdExistence(id);
         wishListRepository.deleteById(id);
     }
 
     public Wish getWish(int id) {
-        validateWishIdExitence(id);
+        validateWishIdExistence(id);
         return wishListRepository.findById(id)
                 .orElse(new Wish(-1, "No such wish!"));
     }
@@ -52,7 +52,7 @@ public class WishListService {
         }
     }
 
-    private void validateWishIdExitence(int id) {
+    private void validateWishIdExistence(int id) {
         if (!wishListRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no such wish in the wishlist, check id!!!");
         }
