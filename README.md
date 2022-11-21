@@ -57,7 +57,7 @@ Just clone this repository
 The program can be run via   `./gradlew bootRun`
 
 After running endpoint description is available in [Swagger](http://localhost:8080/swagger-ui/index.html)
-
+![Swagger](Swagger.png)
 ## Tests
 
 The tests can be run via  `./gradlew clean test`
