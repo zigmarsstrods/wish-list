@@ -1,4 +1,4 @@
-# Wish list 🥰 🥰 🥰
+# 🥰 🥰 🥰 Wish list 🥰 🥰 🥰
 
 ## Goal
 
@@ -42,14 +42,11 @@ Izveidot atsevišķu ceļu, kurā pieņemt JSON request:
                 ]
 }
 
-
-
 Mērķis ir apkopot visus “name” laukus un savienot tos ar komatu kā atdalītāju. API response jābūt: johnsmith, angelinasmith,….
 
 ## Description
 
 REST API using JAVA + PostgreSQL database
-
 
 ## Setup
 
@@ -59,8 +56,8 @@ Just clone this repository
 
 The program can be run via   `./gradlew bootRun`
 
-Endpoints accessible from [http://localhost:8080/](http://localhost:8080/)
-
+After running endpoint description is available in [Swagger](http://localhost:8080/swagger-ui/index.html)
+![Swagger](Swagger.png)
 ## Tests
 
 The tests can be run via  `./gradlew clean test`
