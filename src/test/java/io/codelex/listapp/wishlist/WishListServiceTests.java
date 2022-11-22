@@ -2,6 +2,7 @@ package io.codelex.listapp.wishlist;
 
 import io.codelex.listapp.wishlist.domain.Wish;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -26,9 +27,15 @@ public class WishListServiceTests {
     private final String newWishDescription = "My first wish";
     int wishId = 1;
     int wrongWishId = 2;
-    private final Wish newWish = new Wish(wishId, newWishDescription);
+    private final Wish newWish = new Wish(newWishDescription);
+
     String wishUpdateDescription = "My first wish update";
 
+
+    @BeforeEach
+    public void setWishId() {
+        newWish.setId(wishId);
+    }
 
     @Test
     public void wishShouldBeAdded() {
@@ -54,10 +61,11 @@ public class WishListServiceTests {
 
     @Test
     public void wishShouldBeUpdated() {
-        Wish updatedWish = new Wish(wishId, wishUpdateDescription);
-        Mockito.doAnswer(invocation -> true)
+        Wish updatedWish = new Wish(wishUpdateDescription);
+        updatedWish.setId(wishId);
+        Mockito.doAnswer(invocation -> Optional.of(updatedWish))
                 .when(wishListRepository)
-                .existsById(wishId);
+                .findById(wishId);
         Mockito.doAnswer(invocation -> updatedWish)
                 .when(wishListRepository)
                 .save(updatedWish);
@@ -144,7 +152,7 @@ public class WishListServiceTests {
     public void allWishesShouldBeFetched() {
         List<Wish> wishList = new ArrayList<>();
         wishList.add(newWish);
-        Wish secondWish = new Wish(2, wishUpdateDescription);
+        Wish secondWish = new Wish(wishUpdateDescription);
         wishList.add(secondWish);
         Mockito.doAnswer(invocation -> wishList)
                 .when(wishListRepository)

@@ -19,8 +19,7 @@ public class Wish {
     public Wish() {
     }
 
-    public Wish(Integer id, String description) {
-        this.id = id;
+    public Wish( String description) {
         this.description = description;
     }
 

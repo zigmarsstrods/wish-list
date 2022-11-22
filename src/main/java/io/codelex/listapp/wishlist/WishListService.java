@@ -1,5 +1,6 @@
 package io.codelex.listapp.wishlist;
 
+import io.codelex.listapp.wishlist.exceptions.NotFoundException;
 import io.codelex.listapp.wishlist.domain.Wish;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,27 +20,28 @@ public class WishListService {
 
     public Wish addWish(String wishRequest) {
         validateWishUnique(wishRequest);
-        int wishCount = (int) wishListRepository.count();
-        Wish newWish = new Wish(wishCount + 1, wishRequest);
+        Wish newWish = new Wish(wishRequest);
         return wishListRepository.save(newWish);
     }
 
     public Wish updateWish(int id, String wishUpdate) {
-        validateWishIdExistence(id);
         validateWishUnique(wishUpdate);
-        Wish updatedWish = new Wish(id, wishUpdate);
-        return wishListRepository.save(updatedWish);
+        Wish wishToUpdate = wishListRepository.findById(id)
+                .orElseThrow(NotFoundException::new);
+        wishToUpdate.setDescription(wishUpdate);
+        return wishListRepository.save(wishToUpdate);
     }
 
     public void deleteWishById(int id) {
-        validateWishIdExistence(id);
+        if (!wishListRepository.existsById(id)) {
+            throw new NotFoundException();
+        }
         wishListRepository.deleteById(id);
     }
 
     public Wish getWish(int id) {
-        validateWishIdExistence(id);
         return wishListRepository.findById(id)
-                .orElse(new Wish(-1, "No such wish!"));
+                .orElseThrow(NotFoundException::new);
     }
 
     public List<Wish> getAllWishes() {
@@ -49,12 +51,6 @@ public class WishListService {
     private void validateWishUnique(String wishDescription) {
         if (wishListRepository.existsByDescription(wishDescription)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Can not add 2 identical wishes!");
-        }
-    }
-
-    private void validateWishIdExistence(int id) {
-        if (!wishListRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no such wish in the wishlist, check id!!!");
         }
     }
 }
