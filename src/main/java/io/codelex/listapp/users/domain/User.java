@@ -1,26 +1,22 @@
 package io.codelex.listapp.users.domain;
 
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-@Entity
-public class Usr {
+public class User {
 
-
+    @NotNull
     private String type;
-    @Id
+    @NotNull
     private Integer id;
     @NotNull
     private String name;
     @NotNull
     private String email;
 
-    public Usr() {
+    public User() {
     }
 
-    public Usr(String type, Integer id, String name, String email) {
+    public User(String type, Integer id, String name, String email) {
         this.type = type;
         this.id = id;
         this.name = name;

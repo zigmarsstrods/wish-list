@@ -1,6 +1,6 @@
 package io.codelex.listapp.users;
 
-import io.codelex.listapp.users.domain.UserList;
+import io.codelex.listapp.users.dto.UserList;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
